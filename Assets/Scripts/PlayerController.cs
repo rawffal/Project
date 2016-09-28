@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour {
     Transform groundCircle;
     [SerializeField]
     float groundRadius;
-    bool ground;
+    bool ground;    
 
     public bool hasKey;
     // Use this for initialization
@@ -31,7 +31,21 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        dx = Input.GetAxis("Horizontal");
+        if (Input.GetAxisRaw("Horizontal") > 0f)
+        {
+            dx = 1f;
+            transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        else if (Input.GetAxisRaw("Horizontal") < 0f)
+        {
+            dx = -1f;
+            transform.localScale = new Vector3(-1f, 1f, 1f);
+        }
+        else
+        {
+            dx = 0f;
+        }
+
         ground = Physics2D.OverlapCircle(groundCircle.position, groundRadius, whatIsGround);
         if (Input.GetKeyDown(KeyCode.J) && ground)
         {
@@ -41,7 +55,7 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        GetComponent<Rigidbody2D>().velocity = new Vector2(dx * moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(dx * moveSpeed, GetComponent<Rigidbody2D>().velocity.y);        
         if (canJump)
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpHeight);
