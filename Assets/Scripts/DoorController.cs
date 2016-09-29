@@ -15,7 +15,8 @@ public class DoorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K) && hasKey && canExit) Destroy(this.gameObject);
+        //if (Input.GetKeyDown(KeyCode.K) && hasKey && canExit) Destroy(this.gameObject);
+        if (Input.GetKeyDown(KeyCode.K) && canExit) Destroy(this.gameObject);
         if (canExit)
         {
             GetComponent<MeshRenderer>().materials[0].color = new Color(0, 255, 0, 0);
